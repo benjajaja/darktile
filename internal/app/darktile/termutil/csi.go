@@ -306,8 +306,10 @@ func (t *Terminal) csiSendDeviceAttributesHandler(params []string) (renderRequir
 
 	// we are VT100
 	// for DA1 we'll respond ?1;2
+	// the 1 and 2 indicates that we're a VT100 with AVO
+	// the additional 4 allows modern apps to infer sixel support
 	// for DA2 we'll respond >0;0;0
-	response := "?1;2"
+	response := "?1;2;4"
 	if len(params) > 0 && len(params[0]) > 0 && params[0][0] == '>' {
 		response = ">0;0;0"
 	}
